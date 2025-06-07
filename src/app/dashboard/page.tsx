@@ -1,7 +1,18 @@
+"use client";
 
-import React from 'react'
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.replace("/signup");
+    }
+  }, [router]);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
       <div className="text-center max-w-md">
@@ -10,10 +21,10 @@ const Dashboard = () => {
           Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
           exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.
         </p>
-        <button className="bg-black">Get Started</button>
+        <button className="bg-black text-white px-4 py-2 rounded">Get Started</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

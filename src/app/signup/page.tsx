@@ -1,8 +1,8 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import axios, { AxiosError } from "axios";
 
 type SignupInput = {
   email: string;
@@ -18,20 +18,20 @@ export default function Signup() {
     password: "",
   });
 
-  async function sendRequest() {
+  async function handleSignupWithOtp() {
     try {
-      const response = await axios.post("/api/signup", {
-        ...postInputs,
+      const res = await axios.post("/api/send-otp", {
+        email: postInputs.email,
       });
 
-      const jwt = response.data.token;
-      localStorage.setItem("token", jwt);
-      alert("Signup successful!");
-
-      router.push("/dashboard");
+      if (res.status === 200) {
+        localStorage.setItem("signupDetails", JSON.stringify(postInputs));
+        alert("OTP sent to your email.");
+        router.push("/verify-otp");
+      }
     } catch (e) {
       const error = e as AxiosError<{ message: string }>;
-      alert("Error while signing up: " + (error.response?.data?.message || error.message));
+      alert("Error while sending OTP: " + (error.response?.data?.message || error.message));
     }
   }
 
@@ -62,10 +62,10 @@ export default function Signup() {
             setPostInputs((prev) => ({ ...prev, password: e.target.value }))
           }
         />
-       
+
         <button
           type="button"
-          onClick={sendRequest}
+          onClick={handleSignupWithOtp}
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-3 w-1/2"
         >
           Sign up

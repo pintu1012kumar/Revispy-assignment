@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
+export function middleware(req: NextRequest) {
+  const token = req.cookies.get("token")?.value;
 
-  if (!token && request.nextUrl.pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/signin", request.url));
+  if (!token && req.nextUrl.pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/signup", req.url));
   }
+
   return NextResponse.next();
 }
 

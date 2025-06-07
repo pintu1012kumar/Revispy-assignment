@@ -9,25 +9,35 @@ export async function POST(req: NextRequest) {
     const { email, password } = body;
 
     if (!email || !password) {
-      return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Email and password are required" },
+        { status: 400 }
+      );
     }
 
+    // Find user by email
     const user = await prisma.user.findUnique({
       where: { email },
     });
 
     if (!user) {
+      // 404 if user not found
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    // Compare password with hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-
     if (!isPasswordValid) {
-      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Invalid credentials" },
+        { status: 401 }
+      );
     }
 
+    // Generate JWT token (custom function)
     const token = generateToken({ id: user.id, email: user.email });
 
+    // Prepare response with token cookie
     const response = NextResponse.json(
       {
         message: "Sign in successful",
@@ -36,21 +46,26 @@ export async function POST(req: NextRequest) {
           name: user.name,
           email: user.email,
         },
-        token, 
+        token,
       },
       { status: 200 }
     );
 
+    // Set token cookie (httpOnly for security)
     response.cookies.set("token", token, {
       httpOnly: true,
       path: "/",
-      maxAge: 7 * 24 * 60 * 60, // 7 days
+      maxAge: 7 * 24 * 60 * 60, // 7 days in seconds
+      secure: process.env.NODE_ENV === "production", // secure in prod only
+      sameSite: "lax",
     });
 
     return response;
-
   } catch (error) {
     console.error("Signin Error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
