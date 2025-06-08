@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Category = {
   id: string;
@@ -11,8 +12,17 @@ export default function Dashboard() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const totalPages = 6; // fixed number, since setTotalPages was unused
+  const totalPages = 6;
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/signup");
+    }
+  }, [router]);
 
   const fetchCategories = async (pageNum: number) => {
     setLoading(true);
