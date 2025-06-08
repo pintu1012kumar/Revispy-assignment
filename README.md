@@ -15,6 +15,11 @@ This is a modern e-commerce web application built using Next.js and TypeScript. 
 
 ## Getting Started
 
+### Live link
+
+- https://revispy-assignment-theta.vercel.app/signup
+- Try this Email - one@gmail.com , Password - 123456 to login easily.
+  
 ### Prerequisites
 
 - Node.js >= 16.x
