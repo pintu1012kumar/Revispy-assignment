@@ -11,7 +11,7 @@ export default function Dashboard() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(6);
+  const totalPages = 6; // fixed number, since setTotalPages was unused
   const [loading, setLoading] = useState(false);
 
   const fetchCategories = async (pageNum: number) => {
@@ -39,8 +39,12 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-5xl mx-auto pt-28 pb-20 px-4">
-      <h1 className="text-4xl font-bold mb-12 text-center">Please hover and mark your interest !!</h1>
-      <p className="text-2xl  mb-12 text-center">" We'll <span className="text-red-500">keep</span> you notified. "</p>
+      <h1 className="text-4xl font-bold mb-12 text-center">
+        Please hover and mark your interest !!
+      </h1>
+      <p className="text-2xl mb-12 text-center">
+        &quot; We&apos;ll <span className="text-red-500">keep</span> you notified. &quot;
+      </p>
 
       {loading ? (
         <p className="text-center">Loading...</p>

@@ -11,12 +11,17 @@ export default function VerifyOtp() {
   useEffect(() => {
     const data = localStorage.getItem("signupDetails");
     if (data) {
-      const parsed = JSON.parse(data);
-      setEmail(parsed.email);
+      try {
+        const parsed = JSON.parse(data);
+        setEmail(parsed.email);
+      } catch (err) {
+        console.error("Error parsing signupDetails:", err);
+        router.push("/signup");
+      }
     } else {
-      router.push("/signup"); 
+      router.push("/signup");
     }
-  }, []);
+  }, [router]); // ✅ Include 'router' in dependency array
 
   const handleVerify = async () => {
     if (!otp || !email) return alert("Missing email or OTP");
@@ -29,7 +34,7 @@ export default function VerifyOtp() {
 
     if (res.ok) {
       const data = await res.json();
-      localStorage.setItem("token", data.token); 
+      localStorage.setItem("token", data.token);
       router.push("/dashboard");
     } else {
       alert("Invalid OTP");
@@ -38,7 +43,9 @@ export default function VerifyOtp() {
 
   return (
     <div className="p-4 max-w-md mx-auto mt-20">
-      <h2 className="text-xl mb-4 font-semibold text-center">Enter the OTP sent to your email</h2>
+      <h2 className="text-xl mb-4 font-semibold text-center">
+        Enter the OTP sent to your email
+      </h2>
       <input
         type="text"
         placeholder="6-digit OTP"
@@ -49,7 +56,7 @@ export default function VerifyOtp() {
         onClick={handleVerify}
         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 w-full rounded"
       >
-        Verify & Continue
+        Verify &amp; Continue
       </button>
     </div>
   );
