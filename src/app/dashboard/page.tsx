@@ -68,7 +68,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Pagination */}
       <div className="flex justify-center items-center mt-10 space-x-4">
         <button
           disabled={page <= 1}
