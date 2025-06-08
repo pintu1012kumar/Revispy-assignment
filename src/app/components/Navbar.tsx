@@ -1,6 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "@/app/components/ui/navbar-menu";
+import {
+  HoveredLink,
+  Menu,
+  MenuItem,
+  ProductItem,
+} from "@/app/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
 
 export function NavbarDemo() {
@@ -78,6 +83,25 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
           </div>
         </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Search🔍">
+          <div className="flex flex-col space-y-4 text-sm">
+      <input
+            type="text"
+            placeholder="Search..."
+            className="px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm w-40 sm:w-56"
+          />
+          </div>
+        </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Cart🛒">
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="/hobby">Hobby</HoveredLink>
+            <HoveredLink href="/individual">Individual</HoveredLink>
+            <HoveredLink href="/team">Team</HoveredLink>
+            <HoveredLink href="/enterprise">Enterprise</HoveredLink>
+          </div>
+        </MenuItem>
+ 
+
       </Menu>
     </div>
   );
