@@ -24,11 +24,12 @@ This is a modern e-commerce web application built using Next.js and TypeScript. 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/pintu1012kumar/Revispy-assignment.git
    cd your-repo-name
-  npm install
- npx prisma generate
- npx prisma migrate dev --name init
- npm run seed
- npm run dev
+   npm install
+   npx prisma generate
+   npx prisma migrate dev --name init
+   npm run seed
+   npm run dev 
+ 
 ---
