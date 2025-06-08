@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
       currentPage: page,
     });
   } catch (error) {
+    console.error("Error fetching categories:", error); // ✅ Log error to use it
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
