@@ -72,12 +72,11 @@ export default function Signin() {
       <div className="hidden md:flex bg-gray-500 justify-center items-center">
         <div className="max-w-md p-4">
           <div className="text-2xl font-bold">
-            &ldquo;The customer service I received was exceptional. The support
-            team went above and beyond to address my concern.&rdquo;
+            &ldquo;User-friendly website, smooth checkout, and a helpful support team that truly cares about customer satisfaction.&rdquo;
           </div>
-          <div className="text-xl font-semibold mt-2">Julies Winfield</div>
+          <div className="text-xl font-semibold mt-2">- Revispy</div>
           <div className="text-sm font-medium text-slate-400 mt-1">
-            CEO | Acme corp
+            CEO | xxxx
           </div>
         </div>
       </div>
