@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
       currentPage: page,
     });
   } catch (error) {
-    console.error("Error in /api/categories:", error);  
+    console.error("API /api/categories error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
